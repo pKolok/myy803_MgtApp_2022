@@ -1,10 +1,1 @@
-### Spring ###
 target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-### Eclipse ###
-.settings/
-.classpath
-.project

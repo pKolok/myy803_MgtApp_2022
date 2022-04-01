@@ -1,2 +1,0 @@
-# myy803_ManagementApp_2022
-Courses Management Application
