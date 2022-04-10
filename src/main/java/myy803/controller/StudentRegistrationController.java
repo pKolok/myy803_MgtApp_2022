@@ -1,25 +1,38 @@
 package myy803.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import myy803.model.StudentRegistration;
-import myy803.repository.StudentRegistrationRepository;
+import myy803.service.StudentRegistrationService;
 
-@RestController
-@RequestMapping(path="MgtApp/StudentRegistrations")
+@Controller
+//@RequestMapping(path="MgtApp/StudentRegistrations")
 public class StudentRegistrationController {
 	
 	@Autowired
-	private StudentRegistrationRepository studentRegistrationRepository;
+	private StudentRegistrationService studentService;
 
-	/* in cmd:
-	 * localhost:8080/MgtApp/StudentRegistrations/add -d name=Panos -d yearOfStudies=4 -d semester=8 -d yearOfRegistration=2020 -d projectGrade=8 -d examGrade=6 -d grade=7*/
+	
+	@RequestMapping(value = "/studentRegs/{id}", method = RequestMethod.POST)
+	public String showStudentRegistrations(@PathVariable int id, Model model) {
+		
+		// if all is good
+		List<StudentRegistration> studentRegistrations = studentService
+				.findRegistrationByCourseId(id);
+		
+		model.addAttribute("studentsList", studentRegistrations);
+		return "Registrations";
+	}
+	
 	
 	@PostMapping(path="/add")
 	public String addNewStudentRegistration (
@@ -29,24 +42,11 @@ public class StudentRegistrationController {
 			@RequestParam double projectGrade, @RequestParam double examGrade,
 			@RequestParam double grade) {
 
-		studentRegistrationRepository.save(new StudentRegistration(name,
+		studentService.save(new StudentRegistration(name,
 				yearOfStudies, semester, yearOfRegistration, projectGrade, 
-				examGrade, grade));
-		
-//		studentRegistrationRepository.save(
-//				new StudentRegistration("Panos", 4, 8, 2020, 9.3, 8.0, 8.5));
-//		studentRegistrationRepository.save(
-//				new StudentRegistration("Maria", 3, 6, 2021, 8.3, 10.0, 9.5));
-//		studentRegistrationRepository.save(
-//				new StudentRegistration("Alex", 5, 10, 2019, 5.2, 8.0, 7.0));
-		
+				examGrade, grade));		
 		
 		return "Saved";
-	}
-
-	@GetMapping(path="/all")
-	public @ResponseBody Iterable<StudentRegistration> getAllstudentRegistrations() {
-		return studentRegistrationRepository.findAll();
 	}
   
 }

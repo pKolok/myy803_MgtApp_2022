@@ -1,35 +1,40 @@
-package service;
+package myy803.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import myy803.dao.StudentRegistrationDAO;
 import myy803.model.StudentRegistration;
 
+@Service
 public class StudentRegistrationImpl implements StudentRegistrationService {
 
+	@Autowired
+	private StudentRegistrationDAO studentRegistrationDAO;
+	
 	public StudentRegistrationImpl() {}  
 	
 	@Override
 	public List<StudentRegistration> findRegistrationByCourseId(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return studentRegistrationDAO.findRegistrationByCourseId(id);
 	}
 
 	@Override
 	public void delete(int id) {
-		// TODO Auto-generated method stub
-
+		studentRegistrationDAO.delete(id);
 	}
 
 	@Override
 	public void save(StudentRegistration studentRegistration) {
-		// TODO Auto-generated method stub
+		studentRegistrationDAO.save(studentRegistration);
 
 	}
 
 	@Override
 	public void update(StudentRegistration studentRegistration) {
-		// TODO Auto-generated method stub
-
+		studentRegistrationDAO.update(studentRegistration);
 	}
 
 }

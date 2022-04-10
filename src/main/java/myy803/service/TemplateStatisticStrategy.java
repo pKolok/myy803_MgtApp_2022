@@ -1,4 +1,4 @@
-package service;
+package myy803.service;
 
 import myy803.model.Course;
 

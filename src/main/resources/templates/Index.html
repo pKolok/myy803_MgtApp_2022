@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Course Management Application</title>
+<link th:href="@{/css/login.css}" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+		<div class="wrapper">
+			<div class="title">
+				<span>Course Management App</span>
+			</div>
+			<form th:action="@{/login}" th:object="${loginForm}" method="post">
+				<!-- matches error and prints respective error message-->
+				<p th:if="${error}" class="error" th:text="${error}" style="color:red;"></p>
+				<p th:if="${info}" class="error" th:text="${info}" style="color:green;"></p>
+				<div class="row">
+					<input type="text" name="username" placeholder="Enter username">
+				</div>
+				<div class="row">
+           			<input type="password" name="password" placeholder="Enter password">
+				</div>
+				<div class="row button">
+					<input type="submit" name="login" value="Login">
+				</div>
+				<div class="row button">
+					<input type="submit" name="register" value="Register">
+				</div>
+			</form>
+			<!--  <form th:action="@{/register}" th:object="${registerForm}" method="post">
+				<div class="row button">
+					<input type="submit" name="Register" value="Register">
+				</div>
+			</form>-->
+		</div>
+	</div>
+</body>
+
+</html>

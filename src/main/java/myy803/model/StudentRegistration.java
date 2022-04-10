@@ -2,29 +2,45 @@ package myy803.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "student_registrations")
 public class StudentRegistration {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
+	
 	@Column(name = "name")
 	private String name;
-	@Column(name = "yearOfStudies")
-	private int yearOfStudies;
+	
 	@Column(name = "semester")
 	private int semester;
-	@Column(name = "yearOfRegistration")
+	
+	@Column(name = "year_of_studies")
+	private int yearOfStudies;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "course_id")
+	private Course course;
+	
+	@Column(name = "year_of_registration")
 	private int yearOfRegistration;
-	@Column(name = "projectGrade")
+	
+	@Column(name = "project_grade")
 	private double projectGrade;
-	@Column(name = "examGrade")
+	
+	@Column(name = "exam_grade")
 	private double examGrade;
+	
 	@Column(name = "grade")
 	private double grade;
 
@@ -55,6 +71,10 @@ public class StudentRegistration {
 	public void setYearOfStudies(Integer yearOfStudies) {
 		this.yearOfStudies = yearOfStudies;
 	}
+
+	public Course getCourse() { return course; }
+
+	public void setCourse(Course course) { this.course = course; }
 
 	public Integer getSemester() { return semester; }
 

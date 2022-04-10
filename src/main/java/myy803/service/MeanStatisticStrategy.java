@@ -1,4 +1,4 @@
-package service;
+package myy803.service;
 
 public class MeanStatisticStrategy extends TemplateStatisticStrategy {
 

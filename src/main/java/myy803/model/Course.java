@@ -1,36 +1,45 @@
 package myy803.model;
 
-import javax.persistence.Column;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.OrderColumn;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "courses")
 public class Course {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "name")
+	
 	private String name;
-	@Column(name = "description")
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "instructor")
+	private Instructor instructor;
+	
 	private String description;
-	@Column(name = "syllabus")
 	private String syllabus;
-	@Column(name = "instructor")
-	private String instructor;
-	@Column(name = "year")
 	private int year;
-	@Column(name = "semester")
 	private int semester;
-	private StudentRegistration studentRegistrations[];
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+	@OrderColumn
+	private List<StudentRegistration> studentRegistrations;
 
 	public Course() {}
 	
 	public Course(String name, String description, String syllabus, 
-			String instructor, int year, int semester) {
+			Instructor instructor, int year, int semester) {
 		this.name = name;
 		this.description = description;
 		this.syllabus = syllabus;
@@ -57,9 +66,9 @@ public class Course {
 	
 	public void setSyllabus(String syllabus) { this.syllabus = syllabus; }
 	
-	public String getInstructor() { return instructor; }
+	public Instructor getInstructor() { return instructor; }
 	
-	public void setInstructor(String instructor) { this.instructor = instructor; }
+	public void setInstructor(Instructor instructor) { this.instructor = instructor; }
 
 	public Integer getYear() { return year; }
 
@@ -75,4 +84,5 @@ public class Course {
 				instructor + "\nYear: " + year + "\nSemester: " + semester + 
 				"\n}";
 	}
+
 }
