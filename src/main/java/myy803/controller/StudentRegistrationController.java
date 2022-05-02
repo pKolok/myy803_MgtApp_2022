@@ -34,7 +34,7 @@ public class StudentRegistrationController {
 	}
 	
 	
-	@PostMapping(path="/add")
+	@PostMapping(path="/addStudent")
 	public String addNewStudentRegistration (
 			@RequestParam String name,  @RequestParam Integer yearOfStudies, 
 			@RequestParam Integer semester, 

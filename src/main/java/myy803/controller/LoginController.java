@@ -54,15 +54,15 @@ public class LoginController {
 				.findCourseByInstructorLogin(username);
 		
 		model.addAttribute("courseList", courses);
+		model.addAttribute("instructor", username);
 		return "Courses";
 	}
 	
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, 
 			params = "register")
-	public String register(@RequestParam String username, String password,
-			Model model) {
-		// Take me to the register page
+	public String register(Model model) {
+		// Take me to Register.html
 		return "Register";
 	}
 	

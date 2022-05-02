@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit Course Form</title>
+<link th:href="@{/css/login.css}" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+		<div class="wrapper">
+			<div class="title">
+				<span>Edit Course</span>
+			</div>
+			<form th:action="@{'/editCourse/{x}/{id}'(x=${instructor}, id=${course.id})}" method="post">
+				<!-- matches error and prints respective error message-->
+				<p th:if="${error}" class="error" th:text="${error}" style="color:red;"></p>
+				<p th:if="${info}" class="error" th:text="${info}" style="color:green;"></p>
+				<div class="row">
+					<input type="text" name="name" placeholder="Name" th:value="${course.name}"/>
+				</div>
+				<div class="row">
+           			<input type="text" name="description" placeholder="Description" th:value="${course.description}"/>
+				</div>
+				<div class="row">
+           			<input type="text" name="syllabus" placeholder="Syllabus" th:value="${course.syllabus}"/>
+				</div>
+				<div class="row">
+           			<input type="text" name="year" placeholder="Year" th:value="${course.year}"/>
+				</div>
+				<div class="row">
+           			<input type="text" name="semester" placeholder="Semester" th:value="${course.semester}"/>
+				</div>												
+				<div class="row button">
+					<input type="submit" name="EditCourse" value="Save Course"/>
+				</div>
+				<div class="row button">
+					<input type="submit" name="CancelEdit" value="Cancel"/>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

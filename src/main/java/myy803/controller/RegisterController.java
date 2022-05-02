@@ -60,11 +60,8 @@ public class RegisterController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST, 
 			params = "cancel")
-	public String cancel(@RequestParam String username, String password1, 
-			String password2, Model model) {
-		System.out.println("Cancelling register...");
-
-		// Take me to the register page
+	public String cancel(Model model) {
+		// Take me to Index.html
 		return "Index";
 	}
 	

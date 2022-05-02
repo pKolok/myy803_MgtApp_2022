@@ -29,7 +29,6 @@ public class StudentRegistrationImpl implements StudentRegistrationService {
 	@Override
 	public void save(StudentRegistration studentRegistration) {
 		studentRegistrationDAO.save(studentRegistration);
-
 	}
 
 	@Override

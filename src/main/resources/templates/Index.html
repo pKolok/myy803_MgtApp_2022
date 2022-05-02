@@ -12,7 +12,7 @@
 			<div class="title">
 				<span>Course Management App</span>
 			</div>
-			<form th:action="@{/login}" th:object="${loginForm}" method="post">
+			<form th:action="@{/login}" method="post">
 				<!-- matches error and prints respective error message-->
 				<p th:if="${error}" class="error" th:text="${error}" style="color:red;"></p>
 				<p th:if="${info}" class="error" th:text="${info}" style="color:green;"></p>
@@ -29,11 +29,6 @@
 					<input type="submit" name="register" value="Register">
 				</div>
 			</form>
-			<!--  <form th:action="@{/register}" th:object="${registerForm}" method="post">
-				<div class="row button">
-					<input type="submit" name="Register" value="Register">
-				</div>
-			</form>-->
 		</div>
 	</div>
 </body>

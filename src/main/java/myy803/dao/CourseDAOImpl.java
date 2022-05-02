@@ -63,5 +63,14 @@ public class CourseDAOImpl implements CourseDAO {
 		}
 	}
 
+	public Course getCourse(int id) {
+		Optional<Course> optionalCourse = courseRepository.findById(id);
+		
+		if (optionalCourse.isPresent()) {
+			Course course = optionalCourse.get();	
+			return course;
+		}
+		return null;
+	}
 	
 }

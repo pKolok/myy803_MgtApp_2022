@@ -37,4 +37,9 @@ public class InstructorServiceImpl implements InstructorService {
 		instructorRepository.save(instructor);
 	}
 
+	@Override
+	public Instructor getInstructor(String username) {
+		Instructor instructor = instructorRepository.getInstructor(username);
+		return instructor;
+	}
 }

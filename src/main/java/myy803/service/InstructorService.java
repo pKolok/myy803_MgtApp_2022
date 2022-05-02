@@ -9,4 +9,6 @@ public interface InstructorService {
 	public String getInstructorPassword(String username);
 	
 	public void registerInstructor(Instructor instructor);
+	
+	public Instructor getInstructor(String username);
 }
