@@ -13,4 +13,6 @@ public interface StudentRegistrationDAO {
 	public void save(StudentRegistration studentRegistration);
 	
 	public void update(StudentRegistration studentRegistration);
+	
+	public StudentRegistration getStudentRegistration(int id);
 }

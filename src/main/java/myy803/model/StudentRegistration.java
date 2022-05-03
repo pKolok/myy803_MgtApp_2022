@@ -46,12 +46,13 @@ public class StudentRegistration {
 
 	public StudentRegistration() {}
 	
-	public StudentRegistration(String name, int yearOfStudies,
-			int semester, int yearOfRegistration, double projectGrade,
+	public StudentRegistration(String name, int yearOfStudies, int semester, 
+			Course course, int yearOfRegistration, double projectGrade,
 			double examGrade, double grade) {
 		this.name = name;
 		this.yearOfStudies = yearOfStudies;
 		this.semester = semester;
+		this.course = course;
 		this.yearOfRegistration = yearOfRegistration;
 		this.projectGrade = projectGrade;
 		this.examGrade = examGrade;

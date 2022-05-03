@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>New Student Registration Form</title>
+<link th:href="@{/css/login.css}" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+		<div class="wrapper">
+			<div class="title">
+				<span>Add New Student</span>
+			</div>
+			<form th:action="@{'/addStudent/{x}/{id}'(x=${instructor}, id=${courseId})}" method="post">
+				<!-- matches error and prints respective error message-->
+				<p th:if="${error}" class="error" th:text="${error}" style="color:red;"></p>
+				<p th:if="${info}" class="error" th:text="${info}" style="color:green;"></p>
+				<div class="row">
+					<input type="text" name="name" placeholder="Name">
+				</div>
+				<div class="row">
+           			<input type="text" name="yearOfStudies" placeholder="Year of Studies">
+				</div>
+				<div class="row">
+           			<input type="text" name="semester" placeholder="Semester">
+				</div>
+				<div class="row">
+           			<input type="text" name="yearOfRegistration" placeholder="Year of Registration">
+				</div>
+				<div class="row">
+           			<input type="text" name="projectGrade" placeholder="Project Grade">
+				</div>	
+				<div class="row">
+           			<input type="text" name="examGrade" placeholder="Exam Grade">
+				</div>												
+				<div class="row button">
+					<input type="submit" name="AddStudent" value="Add Student">
+				</div>
+				<div class="row button">
+					<input type="submit" name="CancelAdd" value="Cancel">
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

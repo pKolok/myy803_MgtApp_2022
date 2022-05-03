@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import myy803.model.Course;
 import myy803.model.Instructor;
+import myy803.model.StudentRegistration;
 import myy803.service.CourseService;
 import myy803.service.InstructorService;
+import myy803.service.StudentRegistrationService;
 
 /* This class should only be aware of the service layer */
 
@@ -26,6 +28,9 @@ public class CourseController {
 	
 	@Autowired
 	private InstructorService instructorService;
+	
+	@Autowired
+	private StudentRegistrationService studentService;
 	
 	/**
 	 * Opens an new page (NewCourseForm.html) to fill in information for a new 
@@ -61,6 +66,8 @@ public class CourseController {
 		
 		List<Course> courses = courseService
 				.findCourseByInstructorLogin(instructor);
+		
+		// These are needed regardless of actual destination
 		model.addAttribute("courseList", courses);
 		model.addAttribute("instructor", instructor);
 		
@@ -105,6 +112,27 @@ public class CourseController {
 	}
 	
 	/**
+	 * Opens the student registrations page for the selected course.
+	 * @param instructor
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/studentRegs/{instructor}/{id}", 
+			method = RequestMethod.POST)
+	public String showStudentRegistrations(@PathVariable String instructor,
+			@PathVariable int id, Model model) {
+		
+		List<StudentRegistration> studentRegistrations = studentService
+				.findRegistrationByCourseId(id);
+		
+		model.addAttribute("instructor", instructor);
+		model.addAttribute("courseId", id);
+		model.addAttribute("studentsList", studentRegistrations);
+		return "Registrations";
+	}
+	
+	/**
 	 * Opens an new page (EditCourseForm.html) to update the information for a  
 	 * course. Passes the instructor and course id through.
 	 * @param instructor
@@ -115,9 +143,8 @@ public class CourseController {
 	@RequestMapping(value = "/editCourseForm/{instructor}/{id}", 
 			method = RequestMethod.POST)
 	public String editCourseInGUI(@PathVariable String instructor,
-			@PathVariable String id, Model model) {	
-		int courseId = Integer.parseInt(id);
-		Course course = courseService.getCourse(courseId);	
+			@PathVariable int id, Model model) {
+		Course course = courseService.getCourse(id);	
 		model.addAttribute("course", course);
 		model.addAttribute("instructor", instructor);
 		return "EditCourseForm";
@@ -184,8 +211,9 @@ public class CourseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/editCourse/{instructor}/{id}", 
-			method = RequestMethod.POST, params = "CancelEdit")
-	public String cancelEdit(@PathVariable String instructor, Model model) {
+			method = RequestMethod.POST, params = "CancelCourseEdit")
+	public String cancelCourseEdit(@PathVariable String instructor, 
+			Model model) {
 		
 		List<Course> courses = courseService
 				.findCourseByInstructorLogin(instructor);
@@ -198,9 +226,9 @@ public class CourseController {
 	@RequestMapping(value = "/deleteCourse/{instructor}/{id}", 
 			method = RequestMethod.POST)
 	public String deleteCourse(@PathVariable String instructor, 
-			@PathVariable String id, Model model) {
+			@PathVariable int id, Model model) {
 		
-		courseService.delete(Integer.parseInt(id));
+		courseService.delete(id);
 		
 		List<Course> courses = courseService
 				.findCourseByInstructorLogin(instructor);
@@ -210,13 +238,18 @@ public class CourseController {
 		return "Courses";
 	}
 	
+	@GetMapping(value="/backToLogin")
+	public String logOut() {
+		return "Index";
+	}
+	
 	private boolean isInteger(String str) {
 		try {  
 			Integer.parseInt(str);
 			return true;
 		} catch(NumberFormatException e){  
 			return false;  
-	  }  
+		}  
 	}
 	
 }

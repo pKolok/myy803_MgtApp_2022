@@ -22,7 +22,6 @@ public class LoginController {
 	@Autowired
 	private CourseService courseService;
 	
-	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, 
 			params = "login")
 	public String login(@RequestParam String username, String password, 

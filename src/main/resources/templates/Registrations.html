@@ -66,21 +66,6 @@ table.table {
 	width: 100%;
     table-layout: fixed;
 }
-.five {
-	width: 5%;
-}
-.ten {
-	width: 10%;
-}
-.fifteen {
-	width: 15%;
-}
-.twenty {
-	width: 20%;
-}
-.thirty {
-	width: 30%;
-}
 table.table tr th, table.table tr td {
     border-color: #e9e9e9;
     vertical-align: middle;
@@ -130,7 +115,7 @@ table.table td .add {
     display: none;
 }
 </style>
-<script>
+<!-- <script>
 $(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip();
 	var actions = $("table td:last-child").html();
@@ -188,7 +173,7 @@ $(document).ready(function(){
 		$(".add-new").removeAttr("disabled");
     });
 });
-</script>
+</script> -->
 </head>
 <body>
 <div class="container-lg">
@@ -198,30 +183,32 @@ $(document).ready(function(){
                 <div class="row">
                     <div class="col-sm-8"><h2>Student Registrations</h2></div>
                     <div class="col-sm-4">
-                        <button type="button" class="btn btn-info add-new">
-                        <i class="fa fa-plus"></i> Add New</button>
+           	        	<form th:action="@{'/addStudentForm/{x}/{id}'(x=${instructor}, id=${courseId})}" method="get">
+   	                  		<button type="submit" class="btn btn-info add-new">
+                        	<i class="fa fa-plus"></i> Add New</button>
+                        </form>
                     </div>
                 </div>
             </div>
             <table class="table table-bordered">
 				<colgroup>
-					<col class="five" />
-					<col class="fifteen" />
-					<col class="ten" />
-					<col class="ten" />
-					<col class="ten" />
-					<col class="ten" />
-					<col class="ten" />
-					<col class="ten" />
-					<col class="ten" />
-					<col class="ten" />
+					<col style="width:5%">
+					<col style="width:18%">
+					<col style="width:8%">
+					<col style="width:9%">
+					<col style="width:10%">
+					<col style="width:12%">
+					<col style="width:9%">
+					<col style="width:8%">
+					<col style="width:8%">
+					<col style="width:13">					
 				</colgroup>
                 <thead>
                     <tr>
                     	<th>ID</th>
                         <th>Name</th>
-                        <th>Semester</th>
                         <th>Year of Studies</th>
+                        <th>Semester</th>
                         <th>Course ID</th>
                         <th>Year of Registration</th>
                         <th>Project Grade</th>
@@ -234,31 +221,31 @@ $(document).ready(function(){
                     <tr th:each="student : ${studentsList}">
                         <td th:text="${student.id}"></td>
                         <td th:text="${student.name}"></td>
-                        <td th:text="${student.semester}"></td>
                         <td th:text="${student.yearOfStudies}"></td>
+                        <td th:text="${student.semester}"></td>
                         <td th:text="${student.course.id}"></td>
                         <td th:text="${student.yearOfRegistration}"></td>
                         <td th:text="${student.projectGrade}"></td>
                         <td th:text="${student.examGrade}"></td>
                         <td th:text="${student.grade}"></td>
-                        <td>
-                            <a class="add" title="Add" data-toggle="tooltip">
-                            	<i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip">
-                            	<i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip">
-                            	<i class="material-icons">&#xE872;</i></a>
-                        </td>
+                        <td style="text-align:center">
+                        	<form th:action="@{'/editStudentForm/{x}/{y}/{z}'(x=${instructor}, y=${courseId}, z=${student.id})}" th:method="post" style="float:left;">
+                        		<input type="submit" class="btn btn-outline-warning" name=edit value="Edit">
+                        	</form>             
+                        	<form th:action="@{'/deleteStudent/{x}/{y}/{z}'(x=${instructor}, y=${courseId}, z=${student.id})}" th:method="post" style="float:right;">
+                        		<input type="submit" class="btn btn-outline-danger" name=delete value="Del">
+                        	</form>                                 	           
+                        </td>                        
                     </tr> 
                 </tbody>
             </table>
 			<div class="table-footer">
                 <div class="row">
                     <div class="col-sm-12">
-	                    <form th:action="@{'/backToCourses'}" th:method="post">
-                        	<button type="button" class="btn btn-info Back">
+           	        	<form th:action="@{'/backToCourses/{x}'(x=${instructor})}" method="get">
+   	                  		<button type="submit" class="btn btn-info Back">
                         	<i class="fa fa-arrow-left"></i> Back</button>
-	                	</form>
+                        </form>	                	
                     </div>
                 </div>
             </div>

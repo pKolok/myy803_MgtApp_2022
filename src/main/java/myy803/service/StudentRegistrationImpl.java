@@ -35,5 +35,9 @@ public class StudentRegistrationImpl implements StudentRegistrationService {
 	public void update(StudentRegistration studentRegistration) {
 		studentRegistrationDAO.update(studentRegistration);
 	}
-
+	
+	@Override
+	public StudentRegistration getStudentRegistration(int id) {
+		return studentRegistrationDAO.getStudentRegistration(id);
+	}
 }

@@ -75,5 +75,19 @@ public class StudentRegistrationDAOImpl implements StudentRegistrationDAO{
 		
 	}
 	
+	@Override
+	public StudentRegistration getStudentRegistration(int id) {
+		Optional<StudentRegistration> optionalStudentRegistration = 
+				studentRegRepository.findById(id);
+		
+		if (optionalStudentRegistration.isPresent()) {
+			StudentRegistration studentRegistration = 
+					optionalStudentRegistration.get();
+			
+			return studentRegistration;
+		}	
+		return null;	
+	}
+	
 	
 }
