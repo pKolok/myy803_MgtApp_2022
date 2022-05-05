@@ -62,7 +62,8 @@ public class CourseController {
 	public String addNewCourse (@PathVariable String instructor,
 			@RequestParam String name, @RequestParam String description, 
 			@RequestParam String syllabus, @RequestParam String year,
-			@RequestParam String semester, Model model) {
+			@RequestParam String semester, @RequestParam String examWeight,
+			Model model) {
 		
 		List<Course> courses = courseService
 				.findCourseByInstructorLogin(instructor);
@@ -72,14 +73,29 @@ public class CourseController {
 		model.addAttribute("instructor", instructor);
 		
 		if (name.isBlank() || description.isBlank() || syllabus.isBlank()
-				|| year.isBlank() || semester.isBlank()) {
+				|| year.isBlank() || semester.isBlank() 
+				|| examWeight.isBlank()) {
 			model.addAttribute("error", "Please provide all course info");
 			return "NewCourseForm";
 		} else if (!isInteger(year)) {
 			model.addAttribute("error", "Please provide integer year");
 			return "NewCourseForm";
+		} else if (Integer.parseInt(year) < 0) {
+			model.addAttribute("error", "Please provide a positive year");
+			return "NewCourseForm";
 		} else if (!isInteger(semester)) {
 			model.addAttribute("error", "Please provide integer semester");
+			return "NewCourseForm";
+		} else if (Integer.parseInt(semester) < 0) {
+			model.addAttribute("error", "Please provide positive integer "
+					+ "semester");
+			return "NewCourseForm";
+		} else if (!isDouble(examWeight)) {
+			model.addAttribute("error", "Please provide decimal exam weight");
+			return "NewCourseForm";
+		} else if (Double.parseDouble(examWeight) < 0.0 
+				|| Double.parseDouble(examWeight) > 1.0) {
+			model.addAttribute("error", "Please provide exam weight in [0,1]");
 			return "NewCourseForm";
 		} else {
 			Instructor instructorObj = instructorService.
@@ -169,7 +185,7 @@ public class CourseController {
 			@PathVariable String id, @RequestParam String name, 
 			@RequestParam String description, @RequestParam String syllabus, 
 			@RequestParam String year, @RequestParam String semester, 
-			Model model) {
+			@RequestParam String examWeight, Model model) {
 		
 		Course course = courseService.getCourse(Integer.parseInt(id));
 		
@@ -184,9 +200,27 @@ public class CourseController {
 			model.addAttribute("course", course);
 			model.addAttribute("error", "Please provide integer year");
 			return "EditCourseForm";
+		} else if (Integer.parseInt(year) < 0) {
+			model.addAttribute("course", course);
+			model.addAttribute("error", "Please provide a positive year");
+			return "EditCourseForm";
 		} else if (!isInteger(semester)) {
 			model.addAttribute("course", course);
 			model.addAttribute("error", "Please provide integer semester");
+			return "EditCourseForm";
+		} else if (Integer.parseInt(semester) < 0) {
+			model.addAttribute("course", course);
+			model.addAttribute("error", "Please provide positive integer "
+					+ "semester");
+			return "EditCourseForm";
+		} else if (!isDouble(examWeight)) {
+			model.addAttribute("course", course);
+			model.addAttribute("error", "Please provide decimal exam weight");
+			return "EditCourseForm";
+		} else if (Double.parseDouble(examWeight) < 0.0 
+				|| Double.parseDouble(examWeight) > 1.0) {
+			model.addAttribute("course", course);
+			model.addAttribute("error", "Please provide exam weight in [0,1]");
 			return "EditCourseForm";
 		} else {
 			course.setName(name);
@@ -194,6 +228,7 @@ public class CourseController {
 			course.setSyllabus(syllabus);
 			course.setYear(Integer.parseInt(year));
 			course.setSemester(Integer.parseInt(semester));
+			course.setExamWeight(Double.parseDouble(examWeight));
 			
 			courseService.update(course);
 			
@@ -252,4 +287,12 @@ public class CourseController {
 		}  
 	}
 	
+	private boolean isDouble(String str) {
+		try {  
+			Double.parseDouble(str);
+			return true;
+		} catch(NumberFormatException e){  
+			return false;  
+		}  
+	}
 }

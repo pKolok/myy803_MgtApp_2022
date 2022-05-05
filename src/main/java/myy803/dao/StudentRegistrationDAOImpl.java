@@ -42,8 +42,7 @@ public class StudentRegistrationDAOImpl implements StudentRegistrationDAO{
 
 	@Override
 	public void save(StudentRegistration studentRegistration) {
-		studentRegRepository.save(studentRegistration);
-		
+		studentRegRepository.save(studentRegistration);	
 	}
 
 	@Override
@@ -72,7 +71,6 @@ public class StudentRegistrationDAOImpl implements StudentRegistrationDAO{
 			// already found in the database
 			studentRegRepository.save(studentRegistration);
 		}
-		
 	}
 	
 	@Override
@@ -88,6 +86,5 @@ public class StudentRegistrationDAOImpl implements StudentRegistrationDAO{
 		}	
 		return null;	
 	}
-	
 	
 }

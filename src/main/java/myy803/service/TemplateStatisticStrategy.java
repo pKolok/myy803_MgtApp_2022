@@ -1,18 +1,40 @@
 package myy803.service;
 
-import myy803.model.Course;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class TemplateStatisticStrategy {
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
-	public TemplateStatisticStrategy() {}
+import myy803.model.StudentRegistration;
+
+public abstract class TemplateStatisticStrategy implements StatisticStrategy{
+
+	protected DescriptiveStatistics descriptiveStatistics;
 	
-	public double calculateStatistic(Course course) {
-		return 0;
+	
+	public TemplateStatisticStrategy() {
+		descriptiveStatistics = new DescriptiveStatistics();
 	}
 	
-	public abstract void doActualCalculation();
-	
-	private void prepareDataSet() {
+	public double calculateStatistic(List<StudentRegistration> students) {
+			
+		List<Double> grades = new ArrayList<Double>();
 		
+		for (StudentRegistration student : students)
+			grades.add(student.getGrade());
+		
+		prepareDataSet(grades);
+		
+		return doActualCalculation();
+	}
+	
+	public abstract Double doActualCalculation();
+	
+	public abstract String getStatisticName();
+	
+	private void prepareDataSet(List<Double> grades) {
+		
+		for (double grade : grades)
+			descriptiveStatistics.addValue(grade);
 	}
 }

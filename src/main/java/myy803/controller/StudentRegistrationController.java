@@ -1,5 +1,8 @@
 package myy803.controller;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +17,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import myy803.model.Course;
 import myy803.model.StudentRegistration;
 import myy803.service.CourseService;
+import myy803.service.KurtosisStatisticStrategy;
+import myy803.service.MaxStatisticStrategy;
+import myy803.service.MeanStatisticStrategy;
+import myy803.service.MedianStatisticStrategy;
+import myy803.service.MinStatisticStrategy;
+import myy803.service.NinetyFifthPercentileStatisticStrategy;
+import myy803.service.SkewnessStatisticStrategy;
+import myy803.service.StandardDeviationStatisticStrategy;
+import myy803.service.StatisticStrategy;
 import myy803.service.StudentRegistrationService;
+import myy803.service.VarianceStatisticStrategy;
 
 /* This class should only be aware of the service layer */
 
@@ -45,7 +58,7 @@ public class StudentRegistrationController {
 	
 	@RequestMapping(value = "/addStudent/{instructor}/{courseId}", 
 			method = RequestMethod.POST, params = "AddStudent")
-	public String addNewStudentRegistration (@PathVariable String instructor,
+	public String addNewStudentRegistration(@PathVariable String instructor,
 			@PathVariable int courseId, @RequestParam String name, 
 			@RequestParam String yearOfStudies, @RequestParam String semester, 
 			@RequestParam String yearOfRegistration, 
@@ -140,7 +153,7 @@ public class StudentRegistrationController {
 	 */
 	@RequestMapping(value = "/editStudent/{instructor}/{courseId}/{studentId}", 
 			method = RequestMethod.POST, params = "EditStudent")
-	public String editCourse (@PathVariable String instructor,
+	public String editStudent(@PathVariable String instructor,
 			@PathVariable int courseId, @PathVariable int studentId, 
 			@RequestParam String name, @RequestParam String yearOfStudies,
 			@RequestParam String semester, 
@@ -245,8 +258,6 @@ public class StudentRegistrationController {
 		return "Registrations";
 	}
 	
-	
-	
 	@RequestMapping(value = "/deleteStudent/{instructor}/{courseId}/{studentId}", 
 			method = RequestMethod.POST)
 	public String deleteCourse(@PathVariable String instructor, 
@@ -279,6 +290,78 @@ public class StudentRegistrationController {
 		return "Courses";
 	}
   
+	@GetMapping(value="/calculateFinalGrades/{instructor}/{courseId}")
+	public String calculateFinalGrades(@PathVariable String instructor, 
+			@PathVariable int courseId, Model model) {
+		
+		Course course = courseService.getCourse(courseId);
+		double examWeight = course.getExamWeight();
+		
+		List<StudentRegistration> studentRegistrations = studentService
+				.findRegistrationByCourseId(courseId);
+		
+		for (StudentRegistration student : studentRegistrations)
+		{
+			double finalGrade = student.getExamGrade()*examWeight 
+					+ student.getProjectGrade()*(1-examWeight);
+			student.setGrade(Math.round(finalGrade * 2) / 2.0);
+			
+			studentService.update(student);
+		}
+		
+		model.addAttribute("instructor", instructor);
+		model.addAttribute("courseId", courseId);
+		model.addAttribute("studentsList", studentRegistrations);
+		return "Registrations";
+	}
+	
+	@GetMapping(value="/calculateStats/{instructor}/{courseId}")
+	public String calculateStats(@PathVariable String instructor, 
+			@PathVariable int courseId, Model model) {
+		
+		Course course = courseService.getCourse(courseId);
+		
+		List<StatisticStrategy> stats = new ArrayList<StatisticStrategy>();
+		stats.add(new MinStatisticStrategy());
+		stats.add(new MaxStatisticStrategy());
+		stats.add(new MeanStatisticStrategy());
+		stats.add(new StandardDeviationStatisticStrategy());
+		stats.add(new VarianceStatisticStrategy());
+		stats.add(new NinetyFifthPercentileStatisticStrategy());
+		stats.add(new SkewnessStatisticStrategy());
+		stats.add(new KurtosisStatisticStrategy());
+		stats.add(new MedianStatisticStrategy());
+		
+		courseService.setStatCalculationStrategies(stats);
+		
+		HashMap<String, Double> statResults = courseService
+				.getCourseStatistics(course);
+		
+		Double minStat = statResults.get("Min");
+		Double maxStat = statResults.get("Max");
+		Double meanStat = statResults.get("Mean");
+		Double stdDevStat = statResults.get("Std. Deviation");
+		Double varianceStat = statResults.get("Variance");
+		Double percentile95Stat = statResults.get("95th Percentile");
+		Double skewnessStat = statResults.get("Skewness");
+		Double kurtosisStat = statResults.get("Kurtosis");
+		Double medianStat = statResults.get("Median");
+		
+		DecimalFormat df = new DecimalFormat("#.###");
+		
+		model.addAttribute("instructor", instructor);
+		model.addAttribute("courseId", courseId);
+		model.addAttribute("Min", df.format(minStat));
+		model.addAttribute("Max", df.format(maxStat));
+		model.addAttribute("Mean", df.format(meanStat));
+		model.addAttribute("StdDeviation", df.format(stdDevStat));
+		model.addAttribute("Variance", df.format(varianceStat));
+		model.addAttribute("NinetyFifthPercentile", df.format(percentile95Stat));
+		model.addAttribute("Skewness", df.format(skewnessStat));
+		model.addAttribute("Kurtosis", df.format(kurtosisStat));
+		model.addAttribute("Median", df.format(medianStat));
+		return "CourseStats";
+	}
 	
 	private boolean isInteger(String str) {
 		try {  

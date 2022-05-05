@@ -245,8 +245,16 @@ $(document).ready(function(){
            	        	<form th:action="@{'/backToCourses/{x}'(x=${instructor})}" method="get">
    	                  		<button type="submit" class="btn btn-info Back">
                         	<i class="fa fa-arrow-left"></i> Back</button>
-                        </form>	                	
+                        </form>	  
+           	        	<form th:action="@{'/calculateFinalGrades/{x}/{y}'(x=${instructor}, y=${courseId} )}" method="get" style="float:right;">
+   	                  		<button type="submit" class="btn btn-light"> Calculate Final Grades</button>
+                        </form>	                                       	
                     </div>
+                    <div class="col-sm-12">
+           	        	<form th:action="@{'/calculateStats/{x}/{y}'(x=${instructor}, y=${courseId} )}" method="get" style="float:right;">
+   	                  		<button type="submit" class="btn btn-light"> Calculate Grade Statistics</button>
+                        </form>	                                       	
+                    </div>                    
                 </div>
             </div>
         </div>

@@ -5,9 +5,12 @@ public class SkewnessStatisticStrategy extends TemplateStatisticStrategy {
 	public SkewnessStatisticStrategy() {}  
 	
 	@Override
-	public void doActualCalculation() {
-		// TODO Auto-generated method stub
-
+	public Double doActualCalculation() {
+		return descriptiveStatistics.getSkewness();
 	}
 
+	@Override
+	public String getStatisticName() {
+		return "Skewness";
+	}
 }

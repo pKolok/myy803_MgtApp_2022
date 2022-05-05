@@ -63,6 +63,7 @@ public class CourseDAOImpl implements CourseDAO {
 		}
 	}
 
+	@Override
 	public Course getCourse(int id) {
 		Optional<Course> optionalCourse = courseRepository.findById(id);
 		
@@ -72,5 +73,4 @@ public class CourseDAOImpl implements CourseDAO {
 		}
 		return null;
 	}
-	
 }

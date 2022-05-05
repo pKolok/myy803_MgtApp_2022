@@ -2,6 +2,7 @@ package myy803.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,21 +22,33 @@ public class Course {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
+	@Column(name = "name")
 	private String name;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "instructor")
 	private Instructor instructor;
 	
+	@Column(name = "description")
 	private String description;
+	
+	@Column(name = "syllabus")
 	private String syllabus;
+	
+	@Column(name = "year")
 	private int year;
+	
+	@Column(name = "semester")
 	private int semester;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
 	@OrderColumn
+	@Column(name = "student_registration")
 	private List<StudentRegistration> studentRegistrations;
 
+	@Column(name = "exam_weight")
+	private double examWeight;
+	
 	public Course() {}
 	
 	public Course(String name, String description, String syllabus, 
@@ -77,6 +90,10 @@ public class Course {
 	public Integer getSemester() { return semester; }
 
 	public void setSemester(Integer semester) { this.semester = semester; }
+
+	public double getExamWeight() {	return examWeight; }
+
+	public void setExamWeight(double examWeight) { this.examWeight = examWeight; }
 
 	public String toString() {
 		return "Course {\nId: " + id + "\nName: " + name + "\nDescription: " + 

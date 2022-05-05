@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import myy803.dao.CourseDAO;
+import myy803.dao.StudentRegistrationDAO;
 import myy803.model.Course;
+import myy803.model.StudentRegistration;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -15,16 +17,31 @@ public class CourseServiceImpl implements CourseService {
 	@Autowired
 	private CourseDAO courseDAO;
 	
+	@Autowired
+	private StudentRegistrationDAO studentRegistrationDAO;
+	
 	private List<StatisticStrategy> statCalculationStrategies;
+	
 	
 	public CourseServiceImpl() {}
 	
-	public HashMap<String, Double> getCourseStatistics() {
-		return null;
+	public HashMap<String, Double> getCourseStatistics(Course course) {
+		HashMap<String, Double> statsInfo = new HashMap<String, Double>();
+		
+		List<StudentRegistration> students = studentRegistrationDAO
+				.findRegistrationByCourseId(course.getId());
+		
+		for (StatisticStrategy strategy : statCalculationStrategies) {
+			
+			statsInfo.put(strategy.getStatisticName(), 
+					strategy.calculateStatistic(students));
+		}
+		
+		return statsInfo;
 	}
 	
 	public List<StatisticStrategy> getStatCalculationStrategies() {
-		return null;
+		return statCalculationStrategies;
 	}
 	
 	public void setStatCalculationStrategies(List<StatisticStrategy> 

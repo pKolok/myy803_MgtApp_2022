@@ -2,12 +2,15 @@ package myy803.service;
 
 public class MeanStatisticStrategy extends TemplateStatisticStrategy {
 
-	public MeanStatisticStrategy() {} 
+	public MeanStatisticStrategy() {}  
 	
 	@Override
-	public void doActualCalculation() {
-		// TODO Auto-generated method stub
-
+	public Double doActualCalculation() {
+		return descriptiveStatistics.getMean();
 	}
 
+	@Override
+	public String getStatisticName() {
+		return "Mean";
+	}	
 }
