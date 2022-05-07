@@ -116,6 +116,28 @@ public class StudentRegistrationController {
 	}
 	
 	/**
+	 * Execution comes here when the user presses cancel while being on the page
+	 * when they add the information of a new course.
+	 * @param instructor
+	 * @param courseId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/addStudent/{instructor}/{courseId}", 
+			method = RequestMethod.POST, params = "CancelNewStudent")
+	public String cancelAddNewStudent(@PathVariable String instructor, 
+			@PathVariable int courseId, Model model) {
+		
+		List<StudentRegistration> studentRegistrations = studentService
+				.findRegistrationByCourseId(courseId);
+		
+		model.addAttribute("instructor", instructor);
+		model.addAttribute("courseId", courseId);
+		model.addAttribute("studentsList", studentRegistrations);
+		return "Registrations";
+	}
+	
+	/**
 	 * Opens an new page (EditStudentForm.html) to update the information for a  
 	 * student. Passes the instructor and course id through.
 	 * @param instructor
@@ -362,6 +384,28 @@ public class StudentRegistrationController {
 		model.addAttribute("Median", df.format(medianStat));
 		return "CourseStats";
 	}
+	
+	@GetMapping(value="helpWithRegistrations/{instructor}/{courseId}")
+	public String showRegistrationsHelp(@PathVariable String instructor, 
+			@PathVariable int courseId, Model model) {
+		model.addAttribute("instructor", instructor);
+		model.addAttribute("courseId", courseId);
+		return "RegistrationsHelp";
+	}
+	
+	@GetMapping(value="backFromRegistrationsHelp/{instructor}/{courseId}")
+	public String backFromRegistrationsHelp(@PathVariable String instructor, 
+			@PathVariable int courseId, Model model) {
+		
+		List<StudentRegistration> studentRegistrations = studentService
+				.findRegistrationByCourseId(courseId);
+		
+		model.addAttribute("instructor", instructor);
+		model.addAttribute("courseId", courseId);
+		model.addAttribute("studentsList", studentRegistrations);
+		return "Registrations";
+	}
+	
 	
 	private boolean isInteger(String str) {
 		try {  

@@ -278,6 +278,23 @@ public class CourseController {
 		return "Index";
 	}
 	
+	@GetMapping(value="helpWithCourses/{instructor}")
+	public String showCourseHelp(@PathVariable String instructor, Model model) {
+		model.addAttribute("instructor", instructor);
+		return "CoursesHelp";
+	}
+	
+	@GetMapping(value="backFromSourcesHelp/{instructor}")
+	public String backFromHelp(@PathVariable String instructor, Model model) {
+		
+		List<Course> courses = courseService
+				.findCourseByInstructorLogin(instructor);
+		
+		model.addAttribute("courseList", courses);
+		model.addAttribute("instructor", instructor);
+		return "Courses";
+	}
+	
 	private boolean isInteger(String str) {
 		try {  
 			Integer.parseInt(str);

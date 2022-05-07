@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Help Page for Courses page</title>
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.box {
+	padding: 25px;
+	width:  1000px;
+}
+</style>
+
+<body>
+	<div class="box">
+		<div class="row">
+	        <div class="col-sm-8"><h1>Help Page for "My Courses"</h1></div>
+		    <div class="col-sm-4">
+		    	<form th:action="@{'/backFromSourcesHelp/{x}'(x=${instructor})}" method="get" style="float:right;">
+		      		<button type="submit" class="btn btn-info Back">
+		        	<i class="fa fa-arrow-left"></i> Back</button>
+		        </form>
+		    </div>
+	    </div>
+		<p>This is a help page to guide you through the main functionality of 
+		the "My	Courses" page.</p>
+		<h2>Displayed Content</h2>
+		<p>The page My Courses lists out all courses assigned to the logged-in 
+		instructor. 
+		Each course comes with the following information</p>
+		<UL>
+			<LI>An ID automatically generated which can not change
+			<LI>The course's name
+			<LI>The course's description
+			<LI>The course's syllabus
+			<LI>The year the course is taught
+			<LI>The semester the course is taught
+			<LI>A list of students who are registered in each course
+		</UL>
+		<p>The following actions can be undertaken in this page:</p>
+		<UL>
+			<LI>View the list of students registered in each course
+			<LI>Add a new course in the list of courses
+			<LI>Edit the information of each course
+			<LI>Remove a course from the list
+			<LI>Log out
+		</UL>
+		<p>Each of the above are described in more detail below.</p>
+		
+		<h3>Show student registrations</h3>
+		<p>In the second last column of the table of courses there is the "Show"
+		 button associated with each course. The button is shown below.</p>
+		<img th:src="@{/img/ShowButton.jpg}" alt=""/>
+		<p>On clicking the button the "Students Registration" page is shown.
+		The contents and actions of this page are described in the respective
+		help page.</p>		
+		
+		<h3>Add a new course</h3>
+		<p>On the top right corner of the screen there is the "Add New" button as
+		shown below. </p>
+		<img th:src="@{/img/AddNewButton.jpg}" alt=""/>
+		<p>On clicking the button the "Add New Course" form appears in which 
+		the user can add all the attributes that make up a course. This form is 
+		shown below. </p>
+		<img th:src="@{/img/AddNewCourseForm.jpg}" alt="" width = 202, height = 314/>
+		<p> The user must necessarily fill in all fields with the right data types.
+		e.g. in the field "Year" a number must be provided. Failure to provide the
+		correct data types gives rise to a warning message. The fields along with
+		their data types are described below.</p>
+		<UL>
+			<LI>[Text] The course's name
+			<LI>[Text] The course's description
+			<LI>[Text] The course's syllabus
+			<LI>[Integer] The year the course is taught
+			<LI>[Integer] The semester the course is taught
+			<LI>[Decimal in [0.0-1.0]] The weight of the course's final exam in 
+			the total grade
+		</UL>
+		<p>On clicking the "Add Course" button the course is added to the list of
+		course. On clicking the "Cancel" button the "My Courses" page is shown.</p>
+		
+		<h3>Edit a course</h3>
+		<p>In the last column of the table of courses there is the "Edit" button
+		 associated with each course. The button is shown below.</p>
+		<img th:src="@{/img/EditButton.jpg}" alt=""/>
+		<p>On clicking the button the "Edit Course" form appears in which 
+		the user can edit all the attributes that make up a course. The form is 
+		pre-filled with the current course attributes. This form is shown below.</p>
+		<img th:src="@{/img/EditCourseForm.jpg}" alt="" width = 202, height = 314/>
+		<p> The user must necessarily have filled in all fields with the right data 
+		types. e.g. in the field "Year" a number must be provided. Failure to 
+		provide the correct data types gives rise to a warning message. The user 
+		can change as little as one field or none at all. The fields (in order of 
+		appearance) along with their data types are described below.</p>
+		<UL>
+			<LI>[Text] The course's name
+			<LI>[Text] The course's description
+			<LI>[Text] The course's syllabus
+			<LI>[Integer] The year the course is taught
+			<LI>[Integer] The semester the course is taught
+			<LI>[Decimal 0-1] The weight of the course's final exam in the total grade
+		</UL>
+		
+		<h3>Delete course</h3>
+		<p>In the last column of the table of courses there is the "Del" button
+		 associated with each course. The button is shown below. </p>
+		<img th:src="@{/img/DelButton.jpg}" alt=""/>		
+		<p>On clicking the button, the respective course is removed from the 
+		list of courses.</p>
+		
+		<h3>Log Out</h3>
+		<p>In the bottom left corner of page there is the "Log Out" button which
+		 is shown below. </p>
+		<img th:src="@{/img/LogOutButton.jpg}" alt=""/>		
+		<p>On clicking the button, the current user is logged out of the 
+		application and the log-in page is shown.</p>		
+		
+		<div class="row">
+		    <div class="col-sm">
+		    	<form th:action="@{'/backFromSourcesHelp/{x}'(x=${instructor})}" method="get" style="float:right;">
+		      		<button type="submit" class="btn btn-info Back">
+		        	<i class="fa fa-arrow-left"></i> Back</button>
+		        </form>
+		    </div>
+	    </div>
+	    <p></p>
+    </div>
+</body>
+</html>

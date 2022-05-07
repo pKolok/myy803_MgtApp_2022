@@ -5,7 +5,10 @@ h2{
  font-variant: inherit;
 }
 body{
- background-color: rgb(192, 192, 192);
+  background-color: rgb(192, 192, 192);
+ /*background-image: url('/templates/landscape.jpg'); */
+ /* background: url([[@{/templates/landscape.jpg}]])
+                    no-repeat center center fixed; */
 }
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 *{
