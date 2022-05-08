@@ -1,8 +1,6 @@
 package myy803.service;
 
-public class MinStatisticStrategy extends TemplateStatisticStrategy {
-
-	public MinStatisticStrategy() {}  
+public class MinStatisticStrategy extends TemplateStatisticStrategy { 
 	
 	@Override
 	public Double doActualCalculation() {

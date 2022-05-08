@@ -1,8 +1,6 @@
 package myy803.service;
 
 public class KurtosisStatisticStrategy extends TemplateStatisticStrategy {
-
-	public KurtosisStatisticStrategy() {}  
 	
 	@Override
 	public Double doActualCalculation() {

@@ -1,8 +1,6 @@
 package myy803.service;
 
-public class NinetyFifthPercentileStatisticStrategy extends TemplateStatisticStrategy {
-	
-	public NinetyFifthPercentileStatisticStrategy() {}   
+public class NinetyFifthPercentileStatisticStrategy extends TemplateStatisticStrategy {   
 	
 	@Override
 	public Double doActualCalculation() {

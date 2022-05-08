@@ -23,9 +23,8 @@ public class CourseServiceImpl implements CourseService {
 	private List<StatisticStrategy> statCalculationStrategies;
 	
 	
-	public CourseServiceImpl() {}
-	
 	public HashMap<String, Double> getCourseStatistics(Course course) {
+		
 		HashMap<String, Double> statsInfo = new HashMap<String, Double>();
 		
 		List<StudentRegistration> students = studentRegistrationDAO

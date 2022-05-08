@@ -23,11 +23,11 @@ import myy803.service.StudentRegistrationService;
 @Controller
 public class CourseController {
 	
-	@Autowired 
-	private CourseService courseService;
-	
 	@Autowired
 	private InstructorService instructorService;
+	
+	@Autowired 
+	private CourseService courseService;
 	
 	@Autowired
 	private StudentRegistrationService studentService;
@@ -40,7 +40,7 @@ public class CourseController {
 	 * @return
 	 */
 	@GetMapping(value="/addCourseForm/{instructor}")
-	public String addCourseInGUI(@PathVariable String instructor, Model model) {
+	public String showAddCourseForm(@PathVariable String instructor, Model model) {
 		model.addAttribute("instructor", instructor);
 		return "NewCourseForm";
 	}
@@ -59,7 +59,7 @@ public class CourseController {
 	 */
 	@RequestMapping(value = "/addCourse/{instructor}", 
 			method = RequestMethod.POST, params = "AddCourse")
-	public String addNewCourse (@PathVariable String instructor,
+	public String addNewCourse(@PathVariable String instructor,
 			@RequestParam String name, @RequestParam String description, 
 			@RequestParam String syllabus, @RequestParam String year,
 			@RequestParam String semester, @RequestParam String examWeight,
@@ -158,7 +158,7 @@ public class CourseController {
 	 */
 	@RequestMapping(value = "/editCourseForm/{instructor}/{id}", 
 			method = RequestMethod.POST)
-	public String editCourseInGUI(@PathVariable String instructor,
+	public String showEditCourseForm(@PathVariable String instructor,
 			@PathVariable int id, Model model) {
 		Course course = courseService.getCourse(id);	
 		model.addAttribute("course", course);
@@ -181,7 +181,7 @@ public class CourseController {
 	 */
 	@RequestMapping(value = "/editCourse/{instructor}/{id}", 
 			method = RequestMethod.POST, params = "EditCourse")
-	public String editCourse (@PathVariable String instructor,
+	public String editCourse(@PathVariable String instructor,
 			@PathVariable String id, @RequestParam String name, 
 			@RequestParam String description, @RequestParam String syllabus, 
 			@RequestParam String year, @RequestParam String semester, 
@@ -285,7 +285,7 @@ public class CourseController {
 	}
 	
 	@GetMapping(value="backFromSourcesHelp/{instructor}")
-	public String backFromHelp(@PathVariable String instructor, Model model) {
+	public String goBackFromHelp(@PathVariable String instructor, Model model) {
 		
 		List<Course> courses = courseService
 				.findCourseByInstructorLogin(instructor);
@@ -294,6 +294,7 @@ public class CourseController {
 		model.addAttribute("instructor", instructor);
 		return "Courses";
 	}
+	
 	
 	private boolean isInteger(String str) {
 		try {  

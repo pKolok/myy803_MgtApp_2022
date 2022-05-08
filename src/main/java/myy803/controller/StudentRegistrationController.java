@@ -49,7 +49,7 @@ public class StudentRegistrationController {
 	 * @return
 	 */
 	@GetMapping(path="/addStudentForm/{instructor}/{courseId}")
-	public String addStudentInGUI(@PathVariable String instructor, 
+	public String showAddStudentForm(@PathVariable String instructor, 
 			@PathVariable int courseId, Model model) {
 		model.addAttribute("instructor", instructor);
 		model.addAttribute("courseId", courseId);
@@ -147,7 +147,7 @@ public class StudentRegistrationController {
 	 */
 	@RequestMapping(value = "/editStudentForm/{instructor}/{courseId}/{studentId}", 
 			method = RequestMethod.POST)
-	public String editStudentInGUI(@PathVariable String instructor,
+	public String showEditStudentForm(@PathVariable String instructor,
 			@PathVariable int courseId, @PathVariable int studentId, 
 			Model model) {
 		StudentRegistration student = studentService.getStudentRegistration(
@@ -282,7 +282,7 @@ public class StudentRegistrationController {
 	
 	@RequestMapping(value = "/deleteStudent/{instructor}/{courseId}/{studentId}", 
 			method = RequestMethod.POST)
-	public String deleteCourse(@PathVariable String instructor, 
+	public String deleteStudent(@PathVariable String instructor, 
 			@PathVariable int courseId, @PathVariable int studentId, 
 			Model model) {
 		
@@ -303,7 +303,7 @@ public class StudentRegistrationController {
 	 * @return
 	 */
 	@GetMapping(value="/backToCourses/{instructor}")
-	public String backToCourse(@PathVariable String instructor, Model model) {
+	public String goBackToCourses(@PathVariable String instructor, Model model) {
 		
 		List<Course> courses = courseService
 				.findCourseByInstructorLogin(instructor);

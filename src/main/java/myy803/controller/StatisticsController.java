@@ -18,7 +18,7 @@ public class StatisticsController {
 	private StudentRegistrationService studentService;
 	
 	@GetMapping(value="/backToStudents/{instructor}/{courseId}")
-	public String calculateStats(@PathVariable String instructor, 
+	public String goBackToRegistrations(@PathVariable String instructor, 
 			@PathVariable int courseId, Model model) {
 		
 		List<StudentRegistration> studentRegistrations = studentService

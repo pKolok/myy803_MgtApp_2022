@@ -2,8 +2,6 @@ package myy803.service;
 
 public class MaxStatisticStrategy extends TemplateStatisticStrategy {
 	
-	public MaxStatisticStrategy() {}  
-	
 	@Override
 	public Double doActualCalculation() {
 		return descriptiveStatistics.getMax();

@@ -18,7 +18,7 @@ public class RegisterController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST, 
 			params = "register")
-	public String register(@RequestParam String username, String password1,
+	public String registerInstructor(@RequestParam String username, String password1,
 			String password2, Model model) {
 		
 		/* User-name checks*/
@@ -51,7 +51,9 @@ public class RegisterController {
 		}
 		
 		// if all is good, create a new instructor login
-		Instructor newInstructor = new Instructor(username, password1);
+		String hashPassword = String.valueOf(password1.hashCode());
+		
+		Instructor newInstructor = new Instructor(username, hashPassword);
 		instructorService.registerInstructor(newInstructor);
 		
 		model.addAttribute("info", "Registration successfull. Please sign in");
@@ -60,8 +62,7 @@ public class RegisterController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST, 
 			params = "cancel")
-	public String cancel(Model model) {
-		// Take me to Index.html
+	public String cancelRegister(Model model) {
 		return "Index";
 	}
 	

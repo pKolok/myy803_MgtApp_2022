@@ -39,11 +39,13 @@ public class LoginController {
 			return "Index";
 		}
 		
-		String correctPassword = instructorService
+		String hashPassword = String.valueOf(password.hashCode());
+		
+		String correctHashPassword = instructorService
 				.getInstructorPassword(username);
 		
 		// if password is not correct
-		if (!password.equals(correctPassword)) {
+		if (!hashPassword.equals(correctHashPassword)) {
 			model.addAttribute("error", "Incorrect username and/or password");
 			return "Index";		
 		}
@@ -57,11 +59,9 @@ public class LoginController {
 		return "Courses";
 	}
 	
-	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, 
 			params = "register")
-	public String register(Model model) {
-		// Take me to Register.html
+	public String showRegisterForm(Model model) {
 		return "Register";
 	}
 	

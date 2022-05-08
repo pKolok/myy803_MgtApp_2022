@@ -15,4 +15,5 @@ import myy803.model.Instructor;
 public interface CourseRepository extends CrudRepository<Course, Integer> {
 	
 	public List<Course> findByInstructor(Instructor instructor);
+	
 }

@@ -14,7 +14,6 @@ public class StudentRegistrationImpl implements StudentRegistrationService {
 	@Autowired
 	private StudentRegistrationDAO studentRegistrationDAO;
 	
-	public StudentRegistrationImpl() {}  
 	
 	@Override
 	public List<StudentRegistration> findRegistrationByCourseId(int id) {

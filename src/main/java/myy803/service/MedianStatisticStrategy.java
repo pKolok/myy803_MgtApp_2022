@@ -1,8 +1,6 @@
 package myy803.service;
 
 public class MedianStatisticStrategy extends TemplateStatisticStrategy {
-
-	public MedianStatisticStrategy() {}  
 	
 	@Override
 	public Double doActualCalculation() {

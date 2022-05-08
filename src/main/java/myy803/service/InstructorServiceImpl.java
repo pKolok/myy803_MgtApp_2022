@@ -1,45 +1,35 @@
 package myy803.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import myy803.model.Instructor;
-import myy803.repository.InstructorRepository;
+import myy803.dao.InstructorDAO;
 
 @Service
 public class InstructorServiceImpl implements InstructorService {
 	
 	@Autowired
-	private InstructorRepository instructorRepository;
+	private InstructorDAO instructorDAO;
+
 	
 	@Override
 	public boolean existsInstructor(String username) {
-		Optional<Instructor> optionalUser = instructorRepository
-				.findById(username);
-		
-		// i.e. optionalUser is not null
-		if (optionalUser.isPresent())
-			return true;
-		
-		return false;
+		return instructorDAO.existsInstructor(username);
 	}
 	
 	@Override
 	public String getInstructorPassword(String username) {
-		Instructor instructor = instructorRepository.getInstructor(username);
-		return instructor.getPassword();
+		return instructorDAO.getInstructorPassword(username);
 	}
 
 	@Override
 	public void registerInstructor(Instructor instructor) {
-		instructorRepository.save(instructor);
+		instructorDAO.registerInstructor(instructor);
 	}
 
 	@Override
 	public Instructor getInstructor(String username) {
-		Instructor instructor = instructorRepository.getInstructor(username);
-		return instructor;
+		return instructorDAO.getInstructor(username);
 	}
 }

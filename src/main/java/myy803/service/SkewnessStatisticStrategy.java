@@ -1,8 +1,6 @@
 package myy803.service;
 
 public class SkewnessStatisticStrategy extends TemplateStatisticStrategy {
-
-	public SkewnessStatisticStrategy() {}  
 	
 	@Override
 	public Double doActualCalculation() {

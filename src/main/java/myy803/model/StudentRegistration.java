@@ -22,11 +22,11 @@ public class StudentRegistration {
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "semester")
-	private int semester;
-	
 	@Column(name = "year_of_studies")
 	private int yearOfStudies;
+	
+	@Column(name = "semester")
+	private int semester;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "course_id")

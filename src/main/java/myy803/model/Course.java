@@ -24,16 +24,16 @@ public class Course {
 	
 	@Column(name = "name")
 	private String name;
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "instructor")
-	private Instructor instructor;
 	
 	@Column(name = "description")
 	private String description;
 	
 	@Column(name = "syllabus")
 	private String syllabus;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "instructor")
+	private Instructor instructor;
 	
 	@Column(name = "year")
 	private int year;
