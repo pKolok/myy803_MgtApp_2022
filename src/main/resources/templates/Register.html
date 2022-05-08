@@ -3,33 +3,36 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Register Page</title>
-<link th:href="@{/css/login.css}" rel="stylesheet">
+<link th:href="@{/css/inputForm.css}" rel="stylesheet">
 </head>
 <body>
-	<div class="container">
-		<div class="wrapper">
-			<div class="title">
-				<span>Register New Instructor</span>
+	<div class="background-image">
+		<div class="spacer"></div>
+		<div class="container">
+			<div class="wrapper">
+				<div class="title">
+					<span>Register New Instructor</span>
+				</div>
+				<form th:action="@{/register}" th:object="${registerForm}" method="post">
+					<!-- matches error1 and prints respective error message-->
+					<p th:if="${error}" class="error" th:text="${error}" style="color:red;"></p>
+					<div class="row">
+						<input type="text" name="username" placeholder="Enter username">
+					</div>
+					<div class="row">
+	           			<input type="password" name="password1" placeholder="Enter password">
+					</div>
+					<div class="row">
+	           			<input type="password" name="password2" placeholder="Confirm password">
+					</div>
+					<div class="row button">
+						<input type="submit" name="register" value="Register">
+					</div>
+					<div class="row button">
+						<input type="submit" name="cancel" value="Cancel">
+					</div>
+				</form>
 			</div>
-			<form th:action="@{/register}" th:object="${registerForm}" method="post">
-				<!-- matches error1 and prints respective error message-->
-				<p th:if="${error}" class="error" th:text="${error}" style="color:red;"></p>
-				<div class="row">
-					<input type="text" name="username" placeholder="Enter username">
-				</div>
-				<div class="row">
-           			<input type="password" name="password1" placeholder="Enter password">
-				</div>
-				<div class="row">
-           			<input type="password" name="password2" placeholder="Confirm password">
-				</div>
-				<div class="row button">
-					<input type="submit" name="register" value="Register">
-				</div>
-				<div class="row button">
-					<input type="submit" name="cancel" value="Cancel">
-				</div>
-			</form>
 		</div>
 	</div>
 </body>

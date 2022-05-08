@@ -4,208 +4,107 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>List of Student Registrations for give course</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+<link th:href="@{/css/TableView.css}" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<style>
-body {
-    color: #404E67;
-    background: #F5F7FA;
-    font-family: 'Open Sans', sans-serif;
-}
-.table-wrapper {
-    width: 1100px;
-    margin: 20px auto;
-    background: #fff;
-    padding: 20px;	
-    box-shadow: 0 1px 1px rgba(0,0,0,.05);
-}
-.table-title {
-    padding-bottom: 10px;
-    margin: 0 0 10px;
-}
-.table-title h2 {
-    margin: 6px 0 0;
-    font-size: 22px;
-}
-.table-title .add-new {
-    float: right;
-    height: 30px;
-    font-weight: bold;
-    font-size: 12px;
-    text-shadow: none;
-    min-width: 100px;
-    border-radius: 50px;
-    line-height: 13px;
-}
-.table-title .add-new i {
-    margin-right: 4px;
-}
-.table-footer {
-    padding-bottom: 10px;
-    margin: 0 0 10px;
-}
-.table-footer .Back {
-    float: left;
-    height: 40px;
-    font-weight: bold;
-    font-size: 14px;
-    text-shadow: none;
-    min-width: 100px;
-    border-radius: 5px;
-    line-height: 13px;
-}
-.table-footer .Back i {
-    margin-right: 4px;
-}
-table.table {
-	width: 100%;
-    table-layout: fixed;
-}
-table.table tr th, table.table tr td {
-    border-color: #e9e9e9;
-    vertical-align: middle;
-}
-table.table th i {
-    font-size: 13px;
-    margin: 0 5px;
-    cursor: pointer;
-}
-table.table th:last-child {
-    width: 100px;
-}
-table.table td a {
-    cursor: pointer;
-    display: inline-block;
-    margin: 0 5px;
-    min-width: 24px;
-}    
-table.table td a.add {
-    color: #27C46B;
-}
-table.table td a.edit {
-    color: #FFC107;
-}
-table.table td a.delete {
-    color: #E34724;
-}
-table.table td i {
-    font-size: 19px;
-}
-table.table td a.add i {
-    font-size: 24px;
-    margin-right: -1px;
-    position: relative;
-    top: 3px;
-}    
-table.table .form-control {
-    height: 32px;
-    line-height: 32px;
-    box-shadow: none;
-    border-radius: 2px;
-}
-table.table .form-control.error {
-    border-color: #f50000;
-}
-table.table td .add {
-    display: none;
-}
-</style>
 
 </head>
 <body>
-<div class="container-lg">
-    <div class="table-responsive">
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-12">
-           	        	<form th:action="@{'/helpWithRegistrations/{x}/{y}'(x=${instructor}, y=${courseId})}" method="get" style="float:right;">
-   	                  		<button type="submit" class="btn btn-link">Help</button>
-                        </form>	                                       	
-                    </div>                  
-                    <div class="col-sm-8"><h2>Student Registrations</h2></div>
-                    <div class="col-sm-4">
-           	        	<form th:action="@{'/addStudentForm/{x}/{id}'(x=${instructor}, id=${courseId})}" method="get">
-   	                  		<button type="submit" class="btn btn-info add-new">
-                        	<i class="fa fa-plus"></i>Add New</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <table class="table table-bordered">
-				<colgroup>
-					<col style="width:5%">
-					<col style="width:18%">
-					<col style="width:8%">
-					<col style="width:9%">
-					<col style="width:10%">
-					<col style="width:12%">
-					<col style="width:9%">
-					<col style="width:8%">
-					<col style="width:8%">
-					<col style="width:13">					
-				</colgroup>
-                <thead>
-                    <tr>
-                    	<th>ID</th>
-                        <th>Name</th>
-                        <th>Year of Studies</th>
-                        <th>Semester</th>
-                        <th>Course ID</th>
-                        <th>Year of Registration</th>
-                        <th>Project Grade</th>
-                        <th>Exam Grade</th>
-                        <th>Grade</th> 
-                        <th>Actions</th>                                            
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="student : ${studentsList}">
-                        <td th:text="${student.id}"></td>
-                        <td th:text="${student.name}"></td>
-                        <td th:text="${student.yearOfStudies}"></td>
-                        <td th:text="${student.semester}"></td>
-                        <td th:text="${student.course.id}"></td>
-                        <td th:text="${student.yearOfRegistration}"></td>
-                        <td th:text="${student.projectGrade}"></td>
-                        <td th:text="${student.examGrade}"></td>
-                        <td th:text="${student.grade}"></td>
-                        <td style="text-align:center">
-                        	<form th:action="@{'/editStudentForm/{x}/{y}/{z}'(x=${instructor}, y=${courseId}, z=${student.id})}" th:method="post" style="float:left;">
-                        		<input type="submit" class="btn btn-outline-warning" name=edit value="Edit">
-                        	</form>             
-                        	<form th:action="@{'/deleteStudent/{x}/{y}/{z}'(x=${instructor}, y=${courseId}, z=${student.id})}" th:method="post" style="float:right;">
-                        		<input type="submit" class="btn btn-outline-danger" name=delete value="Del">
-                        	</form>                                 	           
-                        </td>                        
-                    </tr> 
-                </tbody>
-            </table>
-			<div class="table-footer">
-                <div class="row">
-                    <div class="col-sm-12">
-           	        	<form th:action="@{'/backToCourses/{x}'(x=${instructor})}" method="get">
-   	                  		<button type="submit" class="btn btn-info Back">
-                        	<i class="fa fa-arrow-left"></i> Back</button>
-                        </form>	  
-           	        	<form th:action="@{'/calculateFinalGrades/{x}/{y}'(x=${instructor}, y=${courseId} )}" method="get" style="float:right;">
-   	                  		<button type="submit" class="btn btn-light"> Calculate Final Grades</button>
-                        </form>	                                       	
-                    </div>
-                    <div class="col-sm-12">
-           	        	<form th:action="@{'/calculateStats/{x}/{y}'(x=${instructor}, y=${courseId} )}" method="get" style="float:right;">
-   	                  		<button type="submit" class="btn btn-light"> Calculate Grade Statistics</button>
-                        </form>	                                       	
-                    </div>                    
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="background-image">
+	<div class="spacer"></div>
+	<div class="container-lg">
+	    <div class="table-responsive">
+	        <div class="table-wrapper">
+	            <div class="table-title">
+	                <div class="row">
+	                    <div class="col-sm-12">
+	           	        	<form th:action="@{'/helpWithRegistrations/{x}/{y}'(x=${instructor}, y=${courseId})}" method="get" style="float:right;">
+	   	                  		<button type="submit" class="btn btn-link">Help</button>
+	                        </form>	                                       	
+	                    </div>                  
+	                    <div class="col-sm-8"><h2>Student Registrations</h2></div>
+	                    <div class="col-sm-4">
+	           	        	<form th:action="@{'/addStudentForm/{x}/{id}'(x=${instructor}, id=${courseId})}" method="get">
+	   	                  		<button type="submit" class="btn btn-info add-new">
+	                        	<i class="fa fa-plus"></i>Add New</button>
+	                        </form>
+	                    </div>
+	                </div>
+	            </div>
+	            <table class="table table-bordered">
+					<colgroup>
+						<col style="width:5%">
+						<col style="width:18%">
+						<col style="width:8%">
+						<col style="width:9%">
+						<col style="width:10%">
+						<col style="width:12%">
+						<col style="width:9%">
+						<col style="width:8%">
+						<col style="width:8%">
+						<col style="width:13">					
+					</colgroup>
+	                <thead>
+	                    <tr>
+	                    	<th>ID</th>
+	                        <th>Name</th>
+	                        <th>Year of Studies</th>
+	                        <th>Semester</th>
+	                        <th>Course ID</th>
+	                        <th>Year of Registration</th>
+	                        <th>Project Grade</th>
+	                        <th>Exam Grade</th>
+	                        <th>Grade</th> 
+	                        <th>Actions</th>                                            
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                    <tr th:each="student : ${studentsList}">
+	                        <td th:text="${student.id}"></td>
+	                        <td th:text="${student.name}"></td>
+	                        <td th:text="${student.yearOfStudies}"></td>
+	                        <td th:text="${student.semester}"></td>
+	                        <td th:text="${student.course.id}"></td>
+	                        <td th:text="${student.yearOfRegistration}"></td>
+	                        <td th:text="${student.projectGrade}"></td>
+	                        <td th:text="${student.examGrade}"></td>
+	                        <td th:text="${student.grade}"></td>
+	                        <td style="text-align:center">
+	                        	<form th:action="@{'/editStudentForm/{x}/{y}/{z}'(x=${instructor}, y=${courseId}, z=${student.id})}" th:method="post" style="float:left;">
+	                        		<input type="submit" class="btn btn-outline-warning" name=edit value="Edit">
+	                        	</form>             
+	                        	<form th:action="@{'/deleteStudent/{x}/{y}/{z}'(x=${instructor}, y=${courseId}, z=${student.id})}" th:method="post" style="float:right;">
+	                        		<input type="submit" class="btn btn-outline-danger" name=delete value="Del">
+	                        	</form>                                 	           
+	                        </td>                        
+	                    </tr> 
+	                </tbody>
+	            </table>
+				<div class="table-footer">
+	                <div class="row">
+	                    <div class="col-sm-12">
+	           	        	<form th:action="@{'/backToCourses/{x}'(x=${instructor})}" method="get">
+	   	                  		<button type="submit" class="btn btn-info Back">
+	                        	<i class="fa fa-arrow-left"></i> Back</button>
+	                        </form>	  
+	           	        	<form th:action="@{'/calculateFinalGrades/{x}/{y}'(x=${instructor}, y=${courseId} )}" method="get" style="float:right;">
+	   	                  		<button type="submit" class="btn btn-light"> Calculate Final Grades</button>
+	                        </form>	                                       	
+	                    </div>
+	                    <div class="col-sm-12">
+	           	        	<form th:action="@{'/calculateStats/{x}/{y}'(x=${instructor}, y=${courseId} )}" method="get" style="float:right;">
+	   	                  		<button type="submit" class="btn btn-light"> Calculate Grade Statistics</button>
+	                        </form>	                                       	
+	                    </div>                    
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div> 
 </div>     
 </body>
 </html>

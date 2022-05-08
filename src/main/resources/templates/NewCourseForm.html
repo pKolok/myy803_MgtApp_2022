@@ -3,44 +3,47 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>New Course Form</title>
-<link th:href="@{/css/login.css}" rel="stylesheet">
+<link th:href="@{/css/inputForm.css}" rel="stylesheet">
 </head>
 
 <body>
-	<div class="container">
-		<div class="wrapper">
-			<div class="title">
-				<span>Add New Course</span>
+	<div class="background-image">
+		<div class="spacer"></div>
+		<div class="container">
+			<div class="wrapper">
+				<div class="title">
+					<span>Add New Course</span>
+				</div>
+				<form th:action="@{'/addCourse/{x}'(x=${instructor})}" method="post">
+					<!-- matches error and prints respective error message-->
+					<p th:if="${error}" class="error" th:text="${error}" style="color:red;"></p>
+					<p th:if="${info}" class="error" th:text="${info}" style="color:green;"></p>
+					<div class="row">
+						<input type="text" name="name" placeholder="Name">
+					</div>
+					<div class="row">
+	           			<input type="text" name="description" placeholder="Description">
+					</div>
+					<div class="row">
+	           			<input type="text" name="syllabus" placeholder="Syllabus">
+					</div>
+					<div class="row">
+	           			<input type="text" name="year" placeholder="Year">
+					</div>
+					<div class="row">
+	           			<input type="text" name="semester" placeholder="Semester">
+					</div>			
+					<div class="row">
+	           			<input type="text" name="examWeight" placeholder="Exam Weight e.g. 0.6">
+					</div>															
+					<div class="row button">
+						<input type="submit" name="AddCourse" value="Add Course">
+					</div>
+					<div class="row button">
+						<input type="submit" name="CancelAdd" value="Cancel">
+					</div>
+				</form>
 			</div>
-			<form th:action="@{'/addCourse/{x}'(x=${instructor})}" method="post">
-				<!-- matches error and prints respective error message-->
-				<p th:if="${error}" class="error" th:text="${error}" style="color:red;"></p>
-				<p th:if="${info}" class="error" th:text="${info}" style="color:green;"></p>
-				<div class="row">
-					<input type="text" name="name" placeholder="Name">
-				</div>
-				<div class="row">
-           			<input type="text" name="description" placeholder="Description">
-				</div>
-				<div class="row">
-           			<input type="text" name="syllabus" placeholder="Syllabus">
-				</div>
-				<div class="row">
-           			<input type="text" name="year" placeholder="Year">
-				</div>
-				<div class="row">
-           			<input type="text" name="semester" placeholder="Semester">
-				</div>			
-				<div class="row">
-           			<input type="text" name="examWeight" placeholder="Exam Weight e.g. 0.6">
-				</div>															
-				<div class="row button">
-					<input type="submit" name="AddCourse" value="Add Course">
-				</div>
-				<div class="row button">
-					<input type="submit" name="CancelAdd" value="Cancel">
-				</div>
-			</form>
 		</div>
 	</div>
 </body>
