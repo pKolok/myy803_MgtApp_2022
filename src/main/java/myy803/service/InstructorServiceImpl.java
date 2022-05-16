@@ -13,6 +13,10 @@ public class InstructorServiceImpl implements InstructorService {
 	private InstructorDAO instructorDAO;
 
 	
+	public InstructorServiceImpl(InstructorDAO instructorDAO) {
+		this.instructorDAO = instructorDAO;
+	}
+
 	@Override
 	public boolean existsInstructor(String username) {
 		return instructorDAO.existsInstructor(username);

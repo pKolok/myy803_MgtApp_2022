@@ -15,15 +15,21 @@ import myy803.repository.StudentRegistrationRepository;
 @Service
 public class StudentRegistrationDAOImpl implements StudentRegistrationDAO{
 
+	@Autowired
 	private EntityManager entityManager;
 	
 	@Autowired
 	private StudentRegistrationRepository studentRegRepository;
 	
-	public StudentRegistrationDAOImpl(EntityManager entityManager) {
+	public StudentRegistrationDAOImpl() {}
+	
+	public StudentRegistrationDAOImpl(
+			StudentRegistrationRepository studentRepository,
+			EntityManager entityManager) {
+		this.studentRegRepository = studentRepository;
 		this.entityManager = entityManager;
 	}
-	
+
 	@Override
 	public List<StudentRegistration> findRegistrationByCourseId(int id) {
 		

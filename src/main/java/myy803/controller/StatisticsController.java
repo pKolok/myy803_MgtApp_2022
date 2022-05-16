@@ -17,6 +17,10 @@ public class StatisticsController {
 	@Autowired
 	private StudentRegistrationService studentService;
 	
+	public StatisticsController(StudentRegistrationService studentService) {
+		this.studentService = studentService;
+	}
+
 	@GetMapping(value="/backToStudents/{instructor}/{courseId}")
 	public String goBackToRegistrations(@PathVariable String instructor, 
 			@PathVariable int courseId, Model model) {

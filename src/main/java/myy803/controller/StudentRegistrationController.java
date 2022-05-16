@@ -40,6 +40,14 @@ public class StudentRegistrationController {
 	@Autowired
 	private StudentRegistrationService studentService;
 	
+	
+	public StudentRegistrationController(CourseService courseService,
+			StudentRegistrationService studentService) {
+		this.courseService = courseService;
+		this.studentService = studentService;
+	}
+	
+
 	/**
 	 * Opens an new page (NewStudentForm.html) to fill in information for a new 
 	 * student. Passes the instructor and course id through.
@@ -78,12 +86,23 @@ public class StudentRegistrationController {
 			model.addAttribute("error", "Please provide integer year of "
 					+ "studies");
 			return "NewStudentForm";
+		}  else if (Integer.parseInt(yearOfStudies) < 0) {
+			model.addAttribute("error", "Please provide positive integer year "
+					+ "of studies");
+			return "NewStudentForm";
 		} else if (!isInteger(semester)) {
 			model.addAttribute("error", "Please provide integer semester");
+			return "NewStudentForm";
+		} else if (Integer.parseInt(semester) < 0) {
+			model.addAttribute("error", "Please provide positive integer "
+					+ "semester");
 			return "NewStudentForm";
 		} else if (!isInteger(yearOfRegistration)) {
 			model.addAttribute("error", "Please provide integer year of "
 					+ "registration");
+			return "NewStudentForm";
+		} else if (Integer.parseInt(yearOfRegistration) < 2010) {
+			model.addAttribute("error", "Internal students no longer allowed");
 			return "NewStudentForm";
 		} else if (!isDouble(projectGrade)) {
 			model.addAttribute("error", "Please provide decimal project grade");

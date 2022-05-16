@@ -22,6 +22,12 @@ public class LoginController {
 	@Autowired
 	private CourseService courseService;
 	
+	public LoginController(InstructorService instructorService,
+			CourseService courseService) {
+		this.instructorService = instructorService;
+		this.courseService = courseService;
+	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST, 
 			params = "login")
 	public String login(@RequestParam String username, String password, 

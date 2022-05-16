@@ -31,7 +31,16 @@ public class CourseController {
 	
 	@Autowired
 	private StudentRegistrationService studentService;
+
 	
+	public CourseController(InstructorService instructorService, 
+			CourseService courseService, 
+			StudentRegistrationService studentService) {
+		this.instructorService = instructorService;
+		this.courseService = courseService;
+		this.studentService = studentService;
+	}
+
 	/**
 	 * Opens an new page (NewCourseForm.html) to fill in information for a new 
 	 * course. Passes the instructor through.
@@ -103,6 +112,7 @@ public class CourseController {
 			courseService.save(new Course(name, description, syllabus, 
 					instructorObj, Integer.parseInt(year), 
 					Integer.parseInt(semester)));
+			// Get courses again after save - needs to be here
 			courses = courseService.findCourseByInstructorLogin(instructor);
 			model.addAttribute("courseList", courses);
 			return "Courses";

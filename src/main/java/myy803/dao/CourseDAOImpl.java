@@ -15,19 +15,24 @@ import myy803.repository.CourseRepository;
 @Service
 public class CourseDAOImpl implements CourseDAO {
 	
+	@Autowired
 	private EntityManager entityManager;
 	
 	@Autowired
 	private CourseRepository courseRepository;
+
+	public CourseDAOImpl() {}
 	
-	
-	public CourseDAOImpl(EntityManager entityManager) {
+	public CourseDAOImpl(CourseRepository courseRepository,
+			EntityManager entityManager) {
 		this.entityManager = entityManager;
+		this.courseRepository = courseRepository;
 	}
-	
+		
 	@Override
 	public List<Course> findCourseByInstructorLogin(String pInstructor) {
-		Instructor instructor = entityManager.find(Instructor.class, pInstructor);
+		Instructor instructor = entityManager
+				.find(Instructor.class, pInstructor);
 		
 		List<Course> courses = courseRepository.findByInstructor(instructor);
 		
@@ -46,7 +51,8 @@ public class CourseDAOImpl implements CourseDAO {
 
 	@Override
 	public void update(Course pCourse) {
-		Optional<Course> optionalCourse = courseRepository.findById(pCourse.getId());
+		Optional<Course> optionalCourse = courseRepository
+				.findById(pCourse.getId());
 		
 		if (optionalCourse.isPresent()) {
 			Course course = optionalCourse.get();

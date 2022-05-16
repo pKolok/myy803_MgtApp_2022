@@ -14,6 +14,10 @@ public class InstructorDAOImpl implements InstructorDAO {
 	@Autowired
 	private InstructorRepository instructorRepository;
 	
+	public InstructorDAOImpl(InstructorRepository instructorRepository) {
+		this.instructorRepository = instructorRepository;
+	}
+	
 	@Override
 	public boolean existsInstructor(String username) {
 		Optional<Instructor> optionalUser = instructorRepository
@@ -28,8 +32,15 @@ public class InstructorDAOImpl implements InstructorDAO {
 	
 	@Override
 	public String getInstructorPassword(String username) {
-		Instructor instructor = instructorRepository.getInstructor(username);
-		return instructor.getPassword();
+
+		Optional<Instructor> optionalInstructor = instructorRepository
+				.findById(username);
+		
+		if (optionalInstructor.isPresent()) {
+			Instructor instructor = optionalInstructor.get();
+			return instructor.getPassword();
+		}
+		return "";
 	}
 
 	@Override
@@ -39,8 +50,15 @@ public class InstructorDAOImpl implements InstructorDAO {
 
 	@Override
 	public Instructor getInstructor(String username) {
-		Instructor instructor = instructorRepository.getInstructor(username);
-		return instructor;
+		
+		Optional<Instructor> optionalInstructor = instructorRepository
+				.findById(username);
+		
+		if (optionalInstructor.isPresent()) {
+			Instructor instructor = optionalInstructor.get();
+			return instructor;
+		}
+		return null;
 	}
 
 }

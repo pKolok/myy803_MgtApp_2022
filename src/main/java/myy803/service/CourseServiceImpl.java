@@ -23,29 +23,12 @@ public class CourseServiceImpl implements CourseService {
 	private List<StatisticStrategy> statCalculationStrategies;
 	
 	
-	public HashMap<String, Double> getCourseStatistics(Course course) {
-		
-		HashMap<String, Double> statsInfo = new HashMap<String, Double>();
-		
-		List<StudentRegistration> students = studentRegistrationDAO
-				.findRegistrationByCourseId(course.getId());
-		
-		for (StatisticStrategy strategy : statCalculationStrategies) {
-			
-			statsInfo.put(strategy.getStatisticName(), 
-					strategy.calculateStatistic(students));
-		}
-		
-		return statsInfo;
-	}
+	public CourseServiceImpl() {}
 	
-	public List<StatisticStrategy> getStatCalculationStrategies() {
-		return statCalculationStrategies;
-	}
-	
-	public void setStatCalculationStrategies(List<StatisticStrategy> 
-		statisticStrategies) {
-		statCalculationStrategies = statisticStrategies;
+	public CourseServiceImpl(CourseDAO courseDAO, 
+			StudentRegistrationDAO studentRegistrationDAO) {
+		this.courseDAO = courseDAO;
+		this.studentRegistrationDAO = studentRegistrationDAO;
 	}
 	
 	@Override
@@ -73,4 +56,29 @@ public class CourseServiceImpl implements CourseService {
 		return courseDAO.getCourse(id);
 	}
 
+	public HashMap<String, Double> getCourseStatistics(Course course) {
+		
+		HashMap<String, Double> statsInfo = new HashMap<String, Double>();
+		
+		List<StudentRegistration> students = studentRegistrationDAO
+				.findRegistrationByCourseId(course.getId());
+		
+		for (StatisticStrategy strategy : statCalculationStrategies) {
+			
+			statsInfo.put(strategy.getStatisticName(), 
+					strategy.calculateStatistic(students));
+		}
+		
+		return statsInfo;
+	}
+	
+	public List<StatisticStrategy> getStatCalculationStrategies() {
+		return statCalculationStrategies;
+	}
+	
+	public void setStatCalculationStrategies(List<StatisticStrategy> 
+		statisticStrategies) {
+		statCalculationStrategies = statisticStrategies;
+	}
+	
 }

@@ -16,6 +16,10 @@ public class RegisterController {
 	@Autowired
 	private InstructorService instructorService;
 	
+	public RegisterController(InstructorService instructorService) {
+		this.instructorService = instructorService;
+	}
+
 	@RequestMapping(value = "/register", method = RequestMethod.POST, 
 			params = "register")
 	public String registerInstructor(@RequestParam String username, String password1,
