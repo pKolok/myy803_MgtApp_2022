@@ -111,7 +111,8 @@ public class CourseController {
 					getInstructor(instructor);
 			courseService.save(new Course(name, description, syllabus, 
 					instructorObj, Integer.parseInt(year), 
-					Integer.parseInt(semester)));
+					Integer.parseInt(semester), 
+					Double.parseDouble(examWeight)));
 			// Get courses again after save - needs to be here
 			courses = courseService.findCourseByInstructorLogin(instructor);
 			model.addAttribute("courseList", courses);

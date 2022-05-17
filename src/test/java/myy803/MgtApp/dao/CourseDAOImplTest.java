@@ -41,11 +41,11 @@ class CourseDAOImplTest {
 		
 		// Set up courses
 		english = new Course("myy101", "English", "Introduction to English", 
-				maria, 1, 1);
+				maria, 1, 1, 0.5);
 		calculus = new Course("myy102", "Calculus", "Introduction to Calculus", 
-				maria, 1, 1);
+				maria, 1, 1, 0.5);
 		physics = new Course("myy103", "Physics", "Introduction to Physics", 
-				maria, 1, 1);
+				maria, 1, 1, 0.5);
 		courses = new ArrayList<Course>();
 		courses.add(english); courses.add(calculus); courses.add(physics);
 		

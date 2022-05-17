@@ -38,13 +38,13 @@ public class CourseRepositoryTests {
 		
 		// Assign courses to instructors
 		Course course1 = new Course("myy101", "English", "English Basics",
-				instructor1, 1, 1);
+				instructor1, 1, 1, 0.5);
 		entityManager.persist(course1);
 		Course course2 = new Course("myy102", "Calculus1", "Calculus",
-				instructor1, 1, 1);
+				instructor1, 1, 1, 0.5);
 		entityManager.persist(course2);
 		Course course3 = new Course("myy103", "Physics", "General Physics",
-				instructor2, 1, 1);
+				instructor2, 1, 1, 0.5);
 		entityManager.persist(course3);
 		//entityManager.flush();
 		

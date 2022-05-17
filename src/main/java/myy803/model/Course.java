@@ -52,13 +52,14 @@ public class Course {
 	public Course() {}
 	
 	public Course(String name, String description, String syllabus, 
-			Instructor instructor, int year, int semester) {
+			Instructor instructor, int year, int semester, double examWeight) {
 		this.name = name;
 		this.description = description;
 		this.syllabus = syllabus;
 		this.instructor = instructor;
 		this.year = year;
 		this.semester = semester;
+		this.examWeight = examWeight;
 	}
 	
 	public Integer getId() { return id; }
